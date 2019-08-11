@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="93072" started-at="2019-08-11T18:53:51Z" finished-at="2019-08-11T18:55:24Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="93072" started-at="2019-08-11T18:53:51Z" finished-at="2019-08-11T18:55:24Z">
+      <class name="rentalApp.RentalApplication">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:rentalApp.RentalApplication@51565ec2]" name="setUp" is-config="true" duration-ms="11777" started-at="2019-08-11T18:53:51Z" finished-at="2019-08-11T18:54:02Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="rentalApplication()[pri:0, instance:rentalApp.RentalApplication@51565ec2]" name="rentalApplication" duration-ms="30848" started-at="2019-08-11T18:54:02Z" finished-at="2019-08-11T18:54:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- rentalApplication -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:rentalApp.RentalApplication@51565ec2]" name="tearDown" is-config="true" duration-ms="1247" started-at="2019-08-11T18:54:33Z" finished-at="2019-08-11T18:54:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:rentalApp.RentalApplication@51565ec2]" name="setUp" is-config="true" duration-ms="31220" started-at="2019-08-11T18:54:35Z" finished-at="2019-08-11T18:55:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="newInquiry()[pri:1, instance:rentalApp.RentalApplication@51565ec2]" name="newInquiry" duration-ms="16885" started-at="2019-08-11T18:55:06Z" finished-at="2019-08-11T18:55:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- newInquiry -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:rentalApp.RentalApplication@51565ec2]" name="tearDown" is-config="true" duration-ms="1043" started-at="2019-08-11T18:55:23Z" finished-at="2019-08-11T18:55:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- rentalApp.RentalApplication -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
