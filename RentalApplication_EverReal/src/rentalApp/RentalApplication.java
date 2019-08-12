@@ -1,7 +1,19 @@
+//This java class Contains 2 Test scripts : Submitting a Rental application and Submitting an Inquiry
+/* Note : The web url at times takes more time to load ~approx 45 seconds
+ 		  Despite of Explicit wait, static wait are added as per application's need
+ 		  Currently for all text field, values are hard coded except for email id  in Test script1 (as submitting an email application needs new email everytime)
+ 		  For Email field  inputs are from an Excel and its edited and saved after every run.
+		  Test1: rentalApplication
+		  Test2: newInquiry */
+
 package rentalApp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -22,19 +34,18 @@ public class RentalApplication {
 	@BeforeMethod
 	public void setUp() throws Exception
 	{
-System.out.println("hello");
 		System.setProperty("webdriver.chrome.driver", "Exe driver\\chromedriver.exe");
 		driver=new ChromeDriver();
 		wait=new WebDriverWait(driver, 5);
 		//Launch URL
 		driver.navigate().to("https://acme-qa.everreal.co/app/public/apply/d986458c-4423-4441-be64-77774109864b/applications/step2");
 		driver.manage().window().maximize();
-		
+
 		//Close cookie banner if displayed
-				boolean cookie;
-				cookie=driver.findElement(By.xpath("//span[contains(text(),'We use cookies to deliver')]")).isDisplayed();
-				if(cookie==true)
-					driver.findElement(By.xpath("//span[contains(text(),'clear')]")).click();
+		boolean cookie;
+		cookie=driver.findElement(By.xpath("//span[contains(text(),'We use cookies to deliver')]")).isDisplayed();
+		if(cookie==true)
+			driver.findElement(By.xpath("//span[contains(text(),'clear')]")).click();
 
 	}
 
@@ -80,8 +91,26 @@ System.out.println("hello");
 		//Basic Information
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("input[type='tel']")).sendKeys("123456789");
-		driver.findElement(By.id("email")).sendKeys("neelrock5@test.com");
 
+		//For user email it needs to be unique so needs to be changed every time
+		FileInputStream inputStream = new FileInputStream("Input Excel\\InputDataSheet.xlsx");		
+		XSSFWorkbook workbook=new XSSFWorkbook(inputStream);
+		XSSFSheet sheet1=workbook.getSheet("UserEmail");
+
+		/*The user email is picked from an excel merging 3 columns rental +1 + user@test.com      I.e rental1user@test.com
+		  And the numeric value in between will keep incrementing after every run and saved in the excel
+		Example rental2user@test.com , rental3user@test.com.....etc */
+		driver.findElement(By.id("email")).sendKeys(sheet1.getRow(0).getCell(0).getStringCellValue()+ ""+(int)sheet1.getRow(0).getCell(1).getNumericCellValue()+sheet1.getRow(0).getCell(2).getStringCellValue());
+
+		int Cellvalue=(int)sheet1.getRow(0).getCell(1).getNumericCellValue();
+		Cellvalue++;
+		sheet1.getRow(0).getCell(1).setCellValue(Cellvalue);
+
+		// Write the output to a file
+		FileOutputStream fileOut = new FileOutputStream("Input Excel\\InputDataSheet.xlsx");
+		workbook.write(fileOut);
+		workbook.close();
+		fileOut.close();
 
 		//Current Address
 		driver.findElement(By.id("street")).sendKeys("streetname1");
@@ -129,12 +158,13 @@ System.out.println("hello");
 		File srcFile=SS.getScreenshotAs(OutputType.FILE);
 		File desFile=new File("Screenshots\\RentalApplicationImg.png");
 		FileUtils.copyFile(srcFile, desFile);
+		workbook.close();
 
 	}
 	@Test(priority=1)
 	public void newInquiry() throws Exception {
 
-		
+
 		//Schedule an inquiry 
 		driver.findElement(By.xpath("//span[contains(text(),'View exposé')]")).click();
 		driver.findElement(By.xpath("//span[contains(text(),'Schedule viewing')]")).click();
@@ -159,7 +189,7 @@ System.out.println("hello");
 
 		TakesScreenshot SS=(TakesScreenshot)driver;
 		File srcFile=SS.getScreenshotAs(OutputType.FILE);
-		File desFile=new File("Screenshots\\InquirySubmittedI.png");
+		File desFile=new File("Screenshots\\InquirySubmittedImg.png");
 		FileUtils.copyFile(srcFile, desFile);
 
 		driver.findElement(By.xpath("//span[text()='close']")).click();

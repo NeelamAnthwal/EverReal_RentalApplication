@@ -8,6 +8,7 @@
           <include name="newInquiry"/>
           <include name="tearDown"/>
           <include name="setUp"/>
+          <include name="rentalApplication"/>
         </methods>
       </class> <!-- rentalApp.RentalApplication -->
     </classes>
